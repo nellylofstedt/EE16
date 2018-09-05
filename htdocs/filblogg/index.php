@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Min enkla blogg</title>
     <link rel="stylesheet" href="./css/cyborg.epic.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <h1>Min enkla blogg</h1>
-    <nav>
-        <ul>
-            <li><a href="index.php">Hemsida</a></li>
-            <li><a href="skriva.php">Skriv inlägg</a></li>
-            <li><a href="lasa.php">Läs inlägg</a></li>
-        </ul>
-    </nav>
-    <p>Välkommen till min första webbapp!</p>
+<?php include "header.inc" ?>
+        <main>
+
+        </main>
+         <footer>
+            Nelly Löfstedt 2018 
+        </footer>
+    </div>
 </body>
 </html>
