@@ -18,7 +18,7 @@ if ($anamn == 'NellyLofstedt' && $losen == 'xdzufg123') {
     echo "<p>$anamn, du är inloggad.</p>";
 } else {
     /* Hoppa tillbaka till inloggningsruta */
-    header('Location: upg_3_2.php');
+    header('Location: upg_3_2.php?fel=1');
     die();
 }
 

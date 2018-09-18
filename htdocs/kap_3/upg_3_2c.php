@@ -9,14 +9,21 @@
 </head>
 
 <body>
-    <?php
-if (isset($_GET['fel'])) {
-    $fel = $_GET['fel'];
-    if ($fel == 1) {
+    <?php   
+if(isset($_POST["anamn"]) && isset($_POST["losen"])) { 
+    /* Ta emot data */
+    $anamn = $_POST["anamn"];
+    $losen = $_POST["losen"];
+    
+    /* Kontrollera användarnamn och lösenord */
+    if ($anamn == 'NellyLofstedt' && $losen == 'xdzufg123') {
+        
+        echo "<p>$anamn, du är inloggad.</p>";
+    } else {
         echo "<p>Fel användarnamn eller lösenord</p>";
-    } 
-}    
-    ?>
+    }   
+}  
+?>
     <p>Var vänligen logga in</p>
     <form action="upg_3_2b.php" method="post">
         <label for="">Användarnamn</label>
