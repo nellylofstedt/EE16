@@ -22,22 +22,10 @@
     $slut = 1;
 
     /* Fritextsökning */
-    while ($slut != false) {
-        /* Hitta position av ordet i texten */
-        $slut = stripos($gamlaSidan, $sordet, $start + 1);
-
-        /* Plocka ut textdelen framför hittade ordet */
-        $nyaSidan . = substr(gamlaSidan, $start, $slut) . $nordet;
-        $start = $slut + strlen($sordet);
-
-        $antal++;
-    
-    }
+    $nyaSidan = str_replace($sordet, $nordet, $gamlaSidan);
 
     file_put_contents("test.html", $nyaSidan);
 
-    /* Skriv ut resultat */
-    echo "<p>Vi har hittat <strong>$sordet</strong> $antal gånger i webbsidan och bytt ut det till <strong>$nordet</strong>.</p>";
     ?>
 </body>
 
