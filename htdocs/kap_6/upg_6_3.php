@@ -32,6 +32,9 @@ if (isset($_POST["namn"]) && isset($_POST["adress"]) && isset($_POST["postnr"]) 
     $postort = $_POST["postort"];
     $email = $_POST["email"];
     $fel = 0;
+
+    /* Rensar bort mellanslag */
+
     $postnr = str_replace($postnr, ' ', '');
     
     
