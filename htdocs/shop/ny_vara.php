@@ -14,6 +14,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Filuppladdning</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.0/dist/mini-default.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -22,8 +23,12 @@
     <?php
 /* Kolla att man har klickat på knappen submit */
 if (isset($_POST["submit"])) {
+    /* Ta emot data */
     $filen = $_FILES['filen'];
+    $beskrivning = $_POST['beskrivning'];
+    $pris = $_POST['pris'];
     
+    /* Ladda upp bilden */
     /* Plocka ut filnamnet */
     $fileName = $filen['name'];
     
@@ -69,7 +74,7 @@ if (isset($_POST["submit"])) {
             $fileNewName = uniqid('', true) . "." . $fileExt[1];
             
             /* Hela sökvägen till den nya filen */
-            $fileDestination = "./bilder/$fileNewName";
+            $fileDestination = "./varor/$fileNewName";
             
             
             /* Flytta filen rätt */
@@ -83,13 +88,20 @@ if (isset($_POST["submit"])) {
     } else {
         echo "<p>Icke tillåten filtyp</p>";
     }
-    
+    /* Uppladdning slutförd */
+
+    /* Spara texten: beskrivning, pris och bildens nya namn */
+    $handtag = fopen('beskrivning.txt', 'a');
+    fwrite($handtag, $beskrivning . '¤' . $pris . '¤' . $fileNewName . PHP_EOL);
+    fclose($handtag);
 }
 ?>
 
-    <form action="#" method="POST" enctype="multipart/form-data">
-        <input type="file" name="filen">
-        <button type="submit" name="submit">Ladda upp</button>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <label>Beskrivnig</label><input type="text" name="beskrivning"><br>
+        <label>Pris</label><input type="text" name="pris"><br>
+        <input type="file" name="filen"><br>
+        <button type="submit" name="submit">Ladda upp vara!</button>
     </form>
 </body>
 
