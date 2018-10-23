@@ -11,19 +11,22 @@
 ?>
 <!DOCTYPE html>
 <html lang="sv">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Läsa inlägg</title>
+    <title>Alla varor</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="kontainer">
         <header>
             <h1>Alla varor</h1>
-            <div id="korgen">0 kr</div>
+            <form id="korg" method="post" action="kassa.php">
+                <input id="antalVaror" type="text" value="0" name="antalVaror">
+                <input id="total" type="text" value="0 kr" name="total">
+                <input id="korgen" type="hidden" name="korgen">
+                <button id="kassan">Kassan</button>
+            </form>
         </header>
         <main>
             <?php
@@ -31,16 +34,18 @@
 $allaRader = file("beskrivning.txt");
 /* Loopa igenom rad-för-rad */
 foreach ($allaRader as $rad) {
+    
     /* Plocka isär raden i dess beståndsdelar */
     $delar = explode('¤', $rad);
     
     $beskrivning = $delar[0];
     $pris = $delar[1];
     $bild = $delar[2];
+    
     /* Skriv info och HTML */
     echo "<div class=\"vara\">\n";
     echo "<img src=\"./varor/$bild\" alt=\"$beskrivning\">\n";
-    echo "<p>$beskrivning</p>\n";
+    echo "<p id=\"beskrivning\">$beskrivning</p>\n";
     echo "<p>Styckpris: <span id=\"pris\">$pris</span> kr</p>\n";
     echo "<p>Summa: <span id=\"summa\">$pris</span> kr</p>\n";
     
@@ -48,7 +53,7 @@ foreach ($allaRader as $rad) {
     echo "<tr>\n";
     echo "<td id=\"antal\" rowspan=\"2\">1</td>\n";
     echo "<td id=\"plus\">+</td>\n";
-    echo "<td id=\"kop\" rowspan=\"2\">Köp</td>\n";
+    echo "<td id=\"kop\" rowspan=\"2\">KÖP</td>\n";
     echo "</tr>\n";
     echo "<tr>\n";
     echo "<td id=\"minus\">-</td>\n";
@@ -62,7 +67,4 @@ foreach ($allaRader as $rad) {
     </div>
     <script src="skript.js"></script>
 </body>
-
-</html>
-
 </html>

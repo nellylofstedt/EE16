@@ -3,71 +3,90 @@ window.onload = start;
 
 function start() {
 
-    /* Anslut till elementen via behöver jobba med */
-    const elementTable = document.querySelector('table');
-    console.log(elementTable);
+    var data = [];
+    const elementAntalVaror = document.querySelector('#antalVaror');
+    const elementTotal = document.querySelector('#total');
 
-    const elementPlus = document.querySelector('#plus');
-    console.log(elementPlus);
+    /* Lyssna på klick på hela sidan */
+    const elementKontainer = document.querySelector('.kontainer');
+    elementKontainer.addEventListener('click', klick);
 
-    const elementMinus = document.querySelector('#minus');
-    console.log(elementMinus);
+    /* Vad händer när man klickat på sidan? */
+    function klick(e) {
+        console.log('Nu har vi en klick event på ' + e.target.nodeName);
 
-    const elementKop = document.querySelector('#kop');
-    console.log(elementKop);
-
-    const elementAntal = document.querySelector('#antal');
-
-    const elementSumma = document.querySelector('#summa');
-
-    const elementPris = document.querySelector('#pris');
-
-    /* Lyssna på händelser */
-    elementPlus.addEventListener('click', plus);
-    elementMinus.addEventListener('click', minus);
-    elementKop.addEventListener('click', kop);
-
-    /* Lägg till ett antal */
-    function plus() {
-        /* Läs av antal */
-        var antal = elementAntal.textContent;
-        var pris = elementPris.textContent;
-
-        /* Lägg till en */
-        antal++;
-
-        /* Rökna upp summan */
-        summa = pris * antal;
-
-        /* Skriva tillbaka */
-        elementAntal.textContent = antal;
-        elementSumma.textContent = summa;
-    }
-
-    /* Ta bort ett antal */
-    function minus() {
-        /* Läs av antal */
-        var antal = elementAntal.textContent;
-        
-        /* Ta bort en */
-        if (antal > 1) {
-            antal--;
+        /* Har man klickat på en cell (td) */
+        if (e.target.nodeName === 'TD') {
+            rakna(e.target);
         }
-        
-        /* Skriva tillbaka */
-       elementAntal.textContent = antal;
-        
     }
 
-    function kop() {
-        /* Läs av korgen */
- 
-        var antal = elementAntal.textContent;
+    /* Nu räknar man */
+    function rakna(cell) {
+        console.log('Klick i en cell');
 
-        /* Addera antal * summa */
-        antal++;
-        
-                /* Skriva tillbaka */
-        elementAntal.textContent = antal;
+        /* Leta rätt på närmast #antal, #pris, #summa */
+        const foralder = cell.parentNode.parentNode.parentNode.parentNode;
+        const elementBeskrivning = foralder.querySelector('#beskrivning');
+        const elementAntal = foralder.querySelector('#antal');
+        const elementPris = foralder.querySelector('#pris');
+        const elementSumma = foralder.querySelector('#summa');
+        const elementKorgen = document.querySelector('#korgen');
+
+        /* Hämta innehållet i elementen */
+        var beskrivning = elementBeskrivning.textContent;
+        var antal = parseInt(elementAntal.textContent);
+        var pris = parseInt(elementPris.textContent);
+        var summa = parseInt(elementSumma.textContent);
+        var total = parseInt(elementTotal.value);
+        var antalVaror = parseInt(elementAntalVaror.value);
+
+        /* Klickade man i cellen #plus? */
+        if (cell.id === 'plus') {
+            /* Räkna upp */
+            antal++;
+
+            /* Räkna om summan */
+            var summa = pris * antal;
+
+            /* Skriva tillbaka */
+            elementAntal.textContent = antal;
+            elementSumma.textContent = summa;
+        }
+
+        /* Klickade man i cellen #minus? */
+        if (cell.id === 'minus') {
+            /* Räkna ned om större än 1 */
+            if (antal > 1) {
+                antal--;
+            }
+
+            /* Räkna om summan */
+            var summa = pris * antal;
+
+            /* Skriva tillbaka */
+            elementAntal.textContent = antal;
+            elementSumma.textContent = summa;
+        }
+
+        /* Klickade man i cellen #kop? */
+        if (cell.id === 'kop') {
+            /* Addera antal * summa */
+            total = total + summa;
+
+            /* Räkna upp totala antal varor */
+            antalVaror = antalVaror + antal;
+
+            /* Skriv tillbaka */
+            elementTotal.value = total + "kr";
+            elementAntalVaror.value = antalVaror; 
+
+            /* Spara undan korgen i den dolda input */
+            data.push({ 'beskrivning': beskrivning, 'antal': antal, 'summa': summa });
+            console.log(JSON.stringify(data));
+
+            elementKorgen.value = JSON.stringify(data);
+
+        }
     }
 }
