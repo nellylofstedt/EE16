@@ -1,0 +1,25 @@
+body {
+    background: url(./bilder/pepi-stojanovski-509192-unsplash.jpg);
+    background-size: cover;
+}
+.kontainer {
+    background: rgb(219, 219, 219);
+    padding: 20px;
+    width: 500px;
+    margin: 20px auto;
+    box-shadow: 2px 2px 5px;
+    border-radius: 5px;
+}
+form {
+    display: grid;
+    grid-template-columns: 100px 200px;
+}
+label {
+    align-self: center;
+}
+input, select {
+    padding: 10px;
+    margin: 5px;
+}
+
+
