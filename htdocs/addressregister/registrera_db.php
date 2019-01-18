@@ -31,8 +31,15 @@ include_once("../../admin/konfig_db.php");
 
         /* Lagra data i tabellen */
         $sql = "INSERT INTO personer (fnamn, enamn, epost) VALUES ('$fnamn', '$enamn', '$epost');";
-        echo "<p>$sql</p>";
-        $conn->query($sql);
+        $result = $conn->query($sql);
+
+        /* körde sql satsen */
+        if (!$result) {
+            die("Det blev fel med sql-satsen.");
+        } else {
+            echo "<p>Personen är registrerad</p>";
+        }
+        
 
         /* Stänger ned anslutningen */
         $conn->close();
